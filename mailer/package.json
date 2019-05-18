@@ -1,7 +1,7 @@
 {
   "name": "mailer",
   "version": "1.0.0",
-  "description": "",
+  "description": "sending emails from server",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^4.3.1",
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "nodemailer": "^6.1.1"
   }
 }
