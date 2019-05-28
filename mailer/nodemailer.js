@@ -2,17 +2,17 @@ const nodemailer = require('nodemailer')
 
 const transporter = nodemailer.createTransport(
     {
-        host: 'smtp.mail.ru',
-        port: 465,
-        secure: true, // true for 465, false for other ports
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, // true for 465, false for other ports
+        // Пожалуйста, используйте свой собственный gmail аккаунт для рассылки
         auth: {
-           // Пожалуйста, используйте свой собственный аккаунт для рассылки
-            user: '******', // (замените звездочики на название вашего почтового ящика)
-            pass: '******' //  (замените звездочики на пароль вашего почтового ящика)
+            user: '******', // (замените звездочики на название вашего почтового ящика gmail) 
+            pass: '******' // (замените звездочики на название вашего почтового ящика) 
         }
     },
     {
-        from: 'Mailer Test <mailertest90@mail.ru>',
+        from: 'Mailer Test <******>' // (замените звездочики на название вашего почтового ящика gmail) 
     }
 )
 

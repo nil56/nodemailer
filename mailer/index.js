@@ -24,7 +24,7 @@ app.post('/registration', (req, res) => {
         </ul>
         ${req.body.promo ? `Вы подписаны на рассылку наших акций и предложений,
         чтобы отписаться от рассылки перейдите по ссылке
-        <a href="http://localhost:3001/unsubscribe/${req.body.email}">отписаться от рассылки</a>` : ''}
+        <a href="http://127.0.0.1:3001/unsubscribe/${req.body.email}/">отписаться от рассылки</a>` : ''}
         <p>Данное письмо не требует ответа.<p>`
     }
     mailer(message) 
