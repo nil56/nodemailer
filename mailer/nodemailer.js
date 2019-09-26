@@ -1,43 +1,38 @@
 const nodemailer = require('nodemailer')
 
-// Пожалуйста, используйте свой собственный почтовый аккаунт для рассылки
-const defaultConfig = "smtps://Ваш_email:Ваш_пароль@smtp.mail.ru"
-
-const poolConfig = "smtps://Ваш_email:Ваш_пароль@smtp.mail.ru/?pool=true"
-
 const transporter = nodemailer.createTransport(
-    // {    
-    //     pool: true,
-    //     // maxConnections: 8,
-    //     // socketTimeout: 1000000,
-    //     // maxMessages: 'infinity',
-    //     // rateLimit: 2,
-    //     // rateDelta: 2000,
-    //     host: 'smtp.mail.ru',
-    //     port: 465,
-    //     secure: true, // true for 465, false for other ports       
-    //     auth: {
-    //        user: '******', // (замените звездочики на название вашего почтового ящика) 
-    //        pass: '******' // (замените звездочики на название вашего почтового ящика) 
-    //     },
-    // },
-    poolConfig,
-    {
-        from: 'Mailer Test <******>' // (замените звездочики на название вашего почтового ящика)
+  {
+    pool: true,
+    service: 'Gmail',  
+    auth: {
+      type: 'OAuth2',
+      user: process.env.EMAIL,
+      refreshToken: process.env.EMAIL_REFRESH_TOKEN,
+      clientId: process.env.EMAIL_CLIENT_ID,
+      clientSecret:  process.env.EMAIL_CLIENT_SECRET,
     }
+  },
+  {
+    from: `Mailer Test <${process.env.EMAIL}>`
+  }
 )
 
 transporter.verify((error, success) => {
-    error ? console.log(error) :
-     console.log('Server is ready to take our messages: ', success)
+  if (error) return console.log(error)
+  console.log('Server is ready to take our messages: ', success)
+  transporter.on('token', token => {
+    console.log('A new access token was generated')
+    console.log('User: %s', token.user)
+    console.log('Access Token: %s', token.accessToken)
+    console.log('Expires: %s', new Date(token.expires))
+  })
 })
 
 const mailer = message => {
-    transporter.sendMail(message, (err, info) => {
-        if(err) return console.log(err)
-        console.log('Email sent: ', info)
-        // transporter.close()
-    })
+  transporter.sendMail(message, (err, info) => {
+    if (err) return console.log(err)
+    console.log('Email sent: ', info)
+  })
 }
 
 module.exports = mailer
